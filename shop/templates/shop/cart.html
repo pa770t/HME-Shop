@@ -1,0 +1,101 @@
+{% extends "accounts/master.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+{% if messages %}
+    <div class="w-100 fs-5 text-center py-2 text-white bg-info d-block">
+        {% for message in messages %}
+            {{message}}
+        {% endfor %}
+    </div>
+{% endif %}
+<div class="container d-flex flex-column flex-xl-row justify-content-xl-between align-items-xl-start my-5">
+    {% if cart %}
+        <div class="col-xl-7 border border-secondary rounded-4 p-3">
+            <div class="d-flex justify-content-between">
+                <h5>Cart ({{cart.count}} products)</h5>
+                <a id="clear_cart" href="{% url "clear_cart" %}" class="btn btn-danger">Clear Cart</a>
+            </div>
+            <div class="d-flex mt-3 justify-content-around">
+                <p class="fs-4">Product</p>
+                <p class="fs-4">Count</p>
+                <p class="fs-4">Price</p>
+            </div>
+            <div class="d-flex flex-column gap-3">
+                {% for item in cart %}
+                    <div class="row align-items-center mx-1 border border-secondary rounded-4 px-1 py-2">
+                        <div class="col-5 d-flex align-items-center">
+                            <img src="{{item.product.image.url}}"
+                            style="width: 120px; height: 90px;" alt="de">
+                            <div class="ms-2 d-flex flex-column">
+                                <div class="fs-5 fw-bolder">{{item.product.name}}</div>
+                                <div class="fs-5">${{item.product.price}}</div>
+                            </div>
+                        </div>
+                        <div class="col-4 fs-5 text-center">
+                            <div>{{item.quantity}}</div>
+                        </div>
+                        <div class="col-3 fs-5">
+                            ${{item.total_price}}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="fs-4 d-flex justify-content-center align-items-center">
+            <p>You have no items in carts! <a href="{% url "shop" %}" class="btn btn-warning btn-sm">Go Shopping!</a></p>
+        </div>
+    {% endif %}
+    <div class="col-xl-4 mt-4 mt-xl-0 rounded-4 p-5" style="background-color: #eee;">
+        <div>
+            <h5>Promo Code</h5>
+            <form method="POST" class="position-relative mt-4">
+                {% csrf_token %}
+                {% render_field form.code class="form-control border border-2 rounded-4 py-2" placeholder="Your Promo Code Here" %}
+                {% if form.code.errors %}
+                    <div class="text-danger mt-2">
+                    {% for error in form.code.errors %}
+                        {{ error }}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+                <button type="submit" class="btn btn-dark rounded-5 position-absolute top-0 end-0 py-2">Apply</button>
+            </form>
+        </div>
+        <hr>
+        <div class="d-grid gap-2">
+            <div class="d-flex justify-content-between text-secondary">
+                <div class="fs-5">Subtotal</div>
+                <div class="fs-5">${{sub_total_price}}</div>
+            </div>
+            <div class="d-flex justify-content-between text-secondary">
+                <div class="fs-5">Discount</div>
+                <div class="fs-5">-${{discount_price}}</div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <div class="fw-bolder fs-4">Total</div>
+                <div class="fw-bolder fs-4">${{total_price}}</div>
+            </div>
+            <a id="continue_to_checkout" href="{% url "checkout" %}" class="btn btn-dark rounded-2 w-100 mt-3">Continue To Checkout</a>
+        </div>
+    </div>
+    
+</div>
+
+
+<script>
+    const clear_cart = document.getElementById('clear_cart')
+
+    clear_cart.addEventListener('click', function () {
+        clear_cart.classList.add('disabled')
+    })
+
+    const continue_to_checkout = document.getElementById('continue_to_checkout')
+
+    continue_to_checkout.addEventListener('click', function () {
+        continue_to_checkout.classList.add('disabled')
+    })
+</script>
+{% endblock content %}

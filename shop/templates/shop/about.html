@@ -1,0 +1,35 @@
+{% extends "accounts/master.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- hero section -->
+    <div class="position-relative">
+        <img class="img-fluid object-fit-cover" style="width: 100%; height: 700px; filter: brightness(30%);" src="{% static "accounts/images/cherrydeck-rMILC1PIwM0-unsplash.jpg" %}" alt="...">
+        <div class="position-absolute top-50 start-25 text-center text-white" style="font-family: 'PT San', sans-serif;">
+            <p class="fs-2 fw-bold">About HME Shop</p>
+            <p class="mx-auto w-50">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore, beatae debitis ad earum amet, aperiam quos laboriosam ab quia, molestiae repellat vel possimus quisquam. Necessitatibus tempore quae quam? Quod, itaque.</p>
+        </div>
+    </div>
+
+    <!-- our team -->
+    <div class="pb-5">
+        <div class="container rounded-5 mt-5 pb-3" style="background-color: #eee; font-family: 'PT San', sans-serif;">
+            <p class="fw-bold fs-4 pt-3 text-center">Our Team</p>
+            <div class="d-flex flex-column flex-md-row justify-content-around">
+                <div class="text-center">
+                    <img class="rounded-circle" style="width: 150px; height: 150px;" src="{% static "accounts/images/johndoe.jpg" %}" alt="profile">
+                    <p class="text-secondary fw-bold fs-4 mt-2">John Doe</p>
+                </div>
+                <div class="text-center">
+                    <img class="rounded-circle" style="width: 150px; height: 150px;" src="{% static "accounts/images/mandy.jpg" %}" alt="profile">
+                    <p class="text-secondary fw-bold fs-4 mt-2">Mandy</p>
+                </div>
+                <div class="text-center">
+                    <img class="rounded-circle" style="width: 150px; height: 150px;" src="{% static "accounts/images/austin.jpg" %}" alt="profile">
+                    <p class="text-secondary fw-bold fs-4 mt-2">Austin</p>
+                </div>
+            </div>
+            <p class="px-5">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum, autem nisi tempora numquam fugiat adipisci nostrum. Molestias sunt at ipsa cum iure repellendus hic possimus optio veniam eum vel non minus natus expedita, eos est eveniet quidem perspiciatis id nulla reiciendis ipsam atque dicta ad. Praesentium tempore aspernatur perspiciatis dolorum.</p>
+        </div>
+    </div>
+{% endblock content %}

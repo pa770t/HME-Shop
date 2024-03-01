@@ -1,0 +1,95 @@
+{% extends "accounts/master.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% load socialaccount %}
+
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'error' %}
+            <div class="position-absolute start-0 w-100 fs-5 text-center py-2 text-white" style="background-color: #e0315f;">
+                {{message}}
+            </div>
+        {% endif %}
+        {% if message.tags == 'success' %}
+            <div class="position-absolute start-0 w-100 fs-5 text-center py-2 text-white" style="background-color: #006400;">
+                {{message}}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+    <div class="container mt-5">
+        <div class="text-center">
+            <p class="fs-3" style="font-family: 'Roboto Condensed', sans-serif;">Welcome To HME Shop</p>
+            <p class="fs-5 text-secondary">Register to Create Your Account & Start Shopping</p>
+        </div>
+        <form style="font-family: 'Ruda', sans-serif;" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                {% render_field form.name type="text" class="form-control" id="name" placeholder="John Doe" %}
+                {% if form.name.errors %}
+                    <div class="text-danger mt-2">
+                    {% for error in form.name.errors %}
+                        {{ error }}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="email_or_phone" class="form-label">Email or Phone</label>
+                {% render_field form.email_or_phone type="text" class="form-control" id="email_or_phone" placeholder="Email or Phone(example@gmail.com or +959123456789)" %}
+                {% if form.email_or_phone.errors %}
+                    <div class="text-danger mt-2">
+                    {% for error in form.email_or_phone.errors %}
+                        {{ error }}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="password1" class="form-label">Password</label>
+                {% render_field form.password1 type="password" class="form-control" id="password1" placeholder="Password" %}
+                {% if form.password1.errors %}
+                    <div class="text-danger mt-2">
+                    {% for error in form.password1.errors %}
+                        {{ error }}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="password2" class="form-label">Confirm Password</label>
+                {% render_field form.password2 type="password" class="form-control" id="password2" placeholder="Confirm Password" %}
+                {% if form.password2.errors %}
+                    <div class="text-danger mt-2">
+                    {% for error in form.password2.errors %}
+                        {{ error }}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <button class="btn btn-dark w-100 py-2 mt-3 fs-5" style="font-family: 'Ruda', sans-serif;">Register</button>
+        </form>
+
+        <div class="mt-4">
+            <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
+                <span style="background-color: #fff; padding: 0 10px;" class="text-secondary">
+                  Or Login with
+                </span>
+            </div>
+        </div>
+
+        <!-- Social Login -->
+        <div class="mt-5 text-center d-flex flex-column justify-content-center gap-4">
+            <a href="{% provider_login_url 'google' %}" class="bg-white text-secondary fw-semibold px-4 py-1 rounded border border-2 d-flex justify-content-center align-items-center text-decoration-none">
+                <img style="width: 40px; height: 40px;" src="{% static "accounts/images/g_logo.png" %}" alt="google">
+                Continue with Google
+            </a>
+        </div>
+        
+        <div class="mt-4 text-center">
+            <p class="text-secondary" style="font-family: 'Ruda', sans-serif;">Already have an account? <a href="{% url "login" %}" class="fw-bold text-decoration-underline text-black">Log in</a></p>
+        </div>
+    </div>
+{% endblock content %}

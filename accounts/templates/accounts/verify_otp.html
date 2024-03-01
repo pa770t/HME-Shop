@@ -1,0 +1,62 @@
+{% extends "accounts/master.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% load socialaccount %}
+
+{% block content %}
+    {% if messages %}
+        <div class="position-absolute start-0 w-100 fs-5 text-center py-2 text-white" style="background-color: #e0315f;">
+            {% for message in messages %}
+                {{message}}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="container mt-5">
+        <div class="text-center">
+            <p class="fs-3" style="font-family: 'Roboto Condensed', sans-serif;">Verify your OTP Code to activate your account</p>
+            <p class="fs-5 text-secondary">Activate your account & start shopping. etc...</p>
+        </div>
+        <form method="POST" class="mt-5" style="font-family: 'Ruda', sans-serif;">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="{{ form.otp.id_for_label }}" class="form-label">Verify your OTP</label>
+                {% render_field form.otp type="text" class="form-control" id="email" placeholder="* * * * * *" %}
+                {% if form.otp.errors %}
+                    <div class="text-danger mt-2">
+                    {% for error in form.otp.errors %}
+                        {{ error }}
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <button type="submit" class="btn btn-dark w-100 py-2 mt-3 fs-5" style="font-family: 'Ruda', sans-serif;">Sign in</button>
+        </form>
+
+        <div class="mt-4">
+            <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
+                <span style="background-color: #fff; padding: 0 10px;" class="text-secondary">
+                  Or Login with
+                </span>
+            </div>
+        </div>
+
+        <!-- Social Login -->
+        <div class="mt-5 text-center d-flex flex-column justify-content-center gap-4">
+            <a href="{% provider_login_url 'google' %}" class="bg-white text-secondary fw-semibold px-4 py-1 rounded border border-2 d-flex justify-content-center align-items-center text-decoration-none">
+                <img style="width: 40px; height: 40px;" src="{% static "accounts/images/g_logo.png" %}" alt="google">
+                Continue with Google
+            </a>
+        </div>
+
+        <div class="mt-4 text-center">
+            <p class="text-secondary" style="font-family: 'Ruda', sans-serif;">Don't have an account? <a href="{% url "register" %}" class="fw-bold text-decoration-underline text-black">Sign Up</a></p>
+        </div>
+    </div>
+{% endblock content %}

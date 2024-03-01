@@ -1,0 +1,57 @@
+{% extends "accounts/master.html" %}
+{% load static %}
+{% block content %}
+<div class="container my-5" style="font-family: 'Poppins', sans-serif;">
+    <div class="px-3">
+        <div>
+            <p class="fs-2 fw-bold">Orders</p>
+            <div class="d-flex justify-content-around fs-5 fw-semibold">
+                <a class="text-primary text-decoration-none" href="{% url "orders" %}">All Orders</a>
+                <a class="text-success text-decoration-none" href="{% url "orders" %}?status=Paid">Paid</a>
+                <a class="text-warning text-decoration-none" href="{% url "orders" %}?status=Refund">Refund</a>
+                <a class="text-danger text-decoration-none" href="{% url "orders" %}?status=Cancelled">Cancelled</a>
+            </div>
+        </div>
+        <table class="table text-center mt-4">
+            <thead>
+                <tr class="border table-warning">
+                    <th scope="col">Order No</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <th scope="row">{{order.pk}}</th>
+                        <td>${{order.total_amount}}</td>
+                        <td>{{order.created_at|date:"d M Y"}}</td>
+                        {% if order.status == 'Paid' %}
+                            <td class="fw-semibold text-success">{{order.status}}</td>
+                        {% endif %}
+                        {% if order.status == 'Refund' %}
+                            <td class="fw-semibold text-warning">{{order.status}}</td>
+                        {% endif %}
+                        {% if order.status == 'Cancelled' %}
+                            <td class="fw-semibold text-danger">{{order.status}}</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                {% comment %} <tr>
+                    <th scope="row">9327</th>
+                    <td>$550</td>
+                    <td>9 Jan 2024</td>
+                    <td class="fw-semibold text-warning">Refund</td>
+                </tr>
+                <tr>
+                    <th scope="row">9875</th>
+                    <td>$550</td>
+                    <td>9 Jan 2024</td>
+                    <td class="fw-semibold text-danger">Cancelled</td>
+                </tr> {% endcomment %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

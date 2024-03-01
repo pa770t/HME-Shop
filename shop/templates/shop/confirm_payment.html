@@ -1,0 +1,30 @@
+{% extends "accounts/master.html" %}
+{% load static %}
+{% block content %}
+<div class="container d-flex flex-column flex-xl-row justify-content-xl-between align-items-xl-start my-5">
+    <div class="col-xl-4 mt-4 mx-3 mt-xl-0 rounded-4 px-5 py-4" style="background-color: #eee;">
+        <div class="d-grid gap-2">
+            <div class="d-flex justify-content-between text-secondary">
+                <div class="fs-5">Subtotal</div>
+                <div class="fs-5">$899.97</div>
+            </div>
+            <div class="d-flex justify-content-between text-secondary">
+                <div class="fs-5">Discount</div>
+                <div class="fs-5">$00.00</div>
+            </div>
+            <div class="d-flex justify-content-between">
+                <div class="fw-bolder fs-4">Total</div>
+                <div class="fw-bolder fs-4">$899.97</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-7 px-3 mt-5">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="client_secret" value="{{client_secret}}">
+            <button type="submit" class="btn btn-dark rounded-2 w-100 mt-3">Confirm Payment</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}

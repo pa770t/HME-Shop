@@ -1,0 +1,17 @@
+{% extends "accounts/master.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container my-5">
+        <div class="text-center">
+            <img class="w-75 h-50 rounded-4" src="{{news.header_image.url}}" alt="photo">
+        </div>
+        <div class="mx-auto">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-4">
+                <div class="fs-4 fw-semibold mt-4">{{news.title}}</div>
+                <div>{{news.created_at|date:"d M Y"}}</div>
+            </div>
+            <div class="mt-4">{{news.body}}</div>
+        </div>
+    </div>
+{% endblock content %}

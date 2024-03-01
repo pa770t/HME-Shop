@@ -1,0 +1,69 @@
+{% extends "accounts/master.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- hero section -->
+    <div class="position-relative">
+        <img class="img-fluid object-fit-cover" style="width: 100%; height: 700px; filter: brightness(30%);" src="{% static "accounts/images/technician-repairing-computer-computer-hardware-repairing-upgrade-technology.jpg" %}" alt="...">
+        <div class="position-absolute top-50 start-25 text-center text-white" style="font-family: 'Ruda', sans-serif;">
+            <p class="fs-2 fw-bold">Our Service</p>
+            <p class="mx-auto w-50">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore, beatae debitis ad earum amet, aperiam quos laboriosam ab quia, molestiae repellat vel possimus quisquam. Necessitatibus tempore quae quam? Quod, itaque.</p>
+        </div>
+    </div>
+
+    <div class="pb-5" style="background-color: #eee;">
+        <div class="container row gap-5 mx-auto">
+            <ul class="list-unstyled col-lg-4 py-5" style="font-family: 'Roboto', sans-serif;">
+                <li class="bg-light py-3 px-3 rounded-3 fs-5 d-flex justify-content-between">
+                    <span>Custom PC Builds</span>
+                    <i class="bi bi-arrow-right text-danger"></i>
+                </li>
+                <li class="bg-light py-3 px-3 rounded-3 my-3 fs-5 d-flex justify-content-between">
+                    <span>Repair Desktop</span>
+                    <i class="bi bi-arrow-right text-danger"></i>
+                </li>
+                <li class="bg-light py-3 px-3 rounded-3 my-3 fs-5 d-flex justify-content-between">
+                    <span>Technical Support</span>
+                    <i class="bi bi-arrow-right text-danger"></i>
+                </li>
+                <li class="bg-light py-3 px-3 rounded-3 my-3 fs-5 d-flex justify-content-between">
+                    <span>Gaming Services</span>
+                    <i class="bi bi-arrow-right text-danger"></i>
+                </li>
+            </ul>
+            <img class="img-fluid col-lg-8 py-lg-5" style="width: 800px; height: 600px;" src="{% static "accounts/images/andre-tan-fGEEJ7Z8cIA-unsplash.jpg" %}" alt="img">
+        </div>
+
+        <div class="container row gap-5 mx-auto">
+            <div class="col-md-4 mx-auto d-none d-lg-inline">
+                <h3 class="text-danger" style="font-family: 'Ruda', sans-serif;">Best Quality Accessories</h3>
+
+                <div class="d-flex flex-column justify-content-between mt-5">
+                    <img style="width: 300px; height: 500px;" src="{% static "accounts/images/lasse-jensen-qFHqdoxiZs0-unsplash.jpg" %}" alt="img">
+                    <img style="width: 300px; height: 300px;" src="{% static "accounts/images/vinicius-amnx-amano-NoNLWZwUDm4-unsplash.jpg" %}" alt="img">
+                </div>
+            </div>
+            <div class="col-md-7 mx-auto mt-5 mt-lg-0">
+                <h3 class="text-danger" style="font-family: 'Ruda', sans-serif;">What is Desktop/PCs Setup?</h3>
+
+                <p class="text-secondary fs-5 pt-md-3" style="font-family: 'Roboto', sans-serif;">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga amet cum asperiores error, qui, iusto ut nesciunt quia recusandae provident cumque impedit assumenda natus animi tempora obcaecati! Mollitia, consequuntur dolores.
+                </p>
+
+                <h3 class="text-danger mt-5" style="font-family: 'Ruda', sans-serif;">Our Services make life easy?</h3>
+
+                <p class="text-secondary fs-5 pt-md-3" style="font-family: 'Roboto', sans-serif;">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis veniam dolore cum totam amet quisquam.
+                </p>
+
+                <ul class="list-unstyled pt-3 fs-5 fw-bolder" style="font-family: 'Roboto', sans-serif;">
+                    <li style="color: #333;"><i class="bi bi-check-circle fw-bolder fs-4 text-danger me-3"></i>We service all makes and models</li>
+                    <li class="py-2" style="color: #333;"><i class="bi bi-check-circle fw-bolder fs-4 text-danger me-3"></i>Upfront costs, with no hidden extras.</li>
+                    <li class="py-2" style="color: #333;"><i class="bi bi-check-circle fw-bolder fs-4 text-danger me-3"></i>Lifetime guarantee on all work performed.</li>
+                    <li class="py-2" style="color: #333;"><i class="bi bi-check-circle fw-bolder fs-4 text-danger me-3"></i>Qualified and experienced technicians.</li>
+                    <li class="py-2" style="color: #333;"><i class="bi bi-check-circle fw-bolder fs-4 text-danger me-3"></i>Quick and efficient customer service.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

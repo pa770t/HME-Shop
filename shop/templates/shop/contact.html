@@ -1,0 +1,97 @@
+{% extends "accounts/master.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+{% if messages %}
+    <div class="w-100 fs-5 text-center py-2 text-white bg-info">
+        {% for message in messages %}
+            {{message}}
+        {% endfor %}
+    </div>
+{% endif %}
+    <!-- hero section -->
+    <div class="position-relative">
+        <img class="img-fluid object-fit-cover" style="width: 100%; height: 700px; filter: brightness(30%);" src="{% static "accounts/images/berkeley-communications-WEDDt-u3q3o-unsplash.jpg" %}" alt="...">
+        <div class="position-absolute top-50 start-25 text-center text-white" style="font-family: 'Ruda', sans-serif;">
+            <p class="fs-2 fw-bold">Contact Us</p>
+            <p class="mx-auto w-50">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore, beatae debitis ad earum amet, aperiam quos laboriosam ab quia, molestiae repellat vel possimus quisquam. Necessitatibus tempore quae quam? Quod, itaque.</p>
+        </div>
+    </div>
+    
+
+    <div class="row mx-auto">
+        <div class="col-lg">
+            <div class="mt-5 ms-5">
+                <p class="fs-2 fw-bold" style="font-family: 'Ruda', sans-serif;">Meet us</p>
+                <ul class="d-flex flex-column gap-lg-5">
+                    <li class="d-flex flex-column" style="font-family: 'Roboto Slab', sans-serif;">
+                        <p class="fs-5">Phone:</p>
+                        <p><i class="bi bi-telephone-fill fs-4 me-3"></i>+959123456789</p>
+                    </li>
+                    <li class="d-flex flex-column" style="font-family: 'Roboto Slab', sans-serif;">
+                        <p class="fs-5">Email:</p>
+                        <p><i class="bi bi-envelope-fill fs-4 me-3"></i>contact@hmeshop.shop</p>
+                    </li>
+                    <li class="d-flex flex-column" style="font-family: 'Roboto Slab', sans-serif;">
+                        <p class="fs-5">Location:</p>
+                        <p><i class="bi bi-geo-alt-fill fs-4 me-3"></i>Thingangyun Township, Yangon</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg pb-5" style="background-color: #eee;">
+            <div class="mt-5 ms-5">
+                <p class="fs-2 fw-bold" style="font-family: 'Ruda', sans-serif;">Get in touch</p>
+                <form method="POST" class="d-flex flex-column gap-3">
+                    {% csrf_token %}
+                    <div class="d-flex flex-column" style="font-family: 'Roboto Slab', sans-serif;">
+                        <label for="first_name" class="fs-5">Your First Name:</label>
+                        {% render_field form.first_name class="form-control py-3 rounded-3" id="first_name" placeholder="Your First Name" %}
+                        {% if form.first_name.errors %}
+                            <div class="text-danger mt-2">
+                            {% for error in form.first_name.errors %}
+                                {{ error }}
+                            {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="d-flex flex-column" style="font-family: 'Roboto Slab', sans-serif;">
+                        <label for="last_name" class="fs-5">Your Last Name:</label>
+                        {% render_field form.last_name class="form-control py-3 rounded-3" id="last_name" placeholder="Your Last Name" %}
+                        {% if form.last_name.errors %}
+                            <div class="text-danger mt-2">
+                            {% for error in form.last_name.errors %}
+                                {{ error }}
+                            {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="d-flex flex-column" style="font-family: 'Roboto Slab', sans-serif;">
+                        <label for="email" class="fs-5">Your Email Address:</label>
+                        {% render_field form.email class="form-control py-3 rounded-3" id="email" placeholder="Your Email Address" %}
+                        {% if form.email.errors %}
+                            <div class="text-danger mt-2">
+                            {% for error in form.email.errors %}
+                                {{ error }}
+                            {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="d-flex flex-column">
+                        <label for="message" class="fs-5">Your Message:</label>
+                        {% render_field form.message class="form-control py-3 rounded-3" id="message" placeholder="Your Message" rows="5" %}
+                        {% if form.message.errors %}
+                            <div class="text-danger mt-2">
+                            {% for error in form.message.errors %}
+                                {{ error }}
+                            {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-warning fw-bold mt-3">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

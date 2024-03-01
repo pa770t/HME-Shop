@@ -1,0 +1,9 @@
+{% extends "accounts/master.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container text-center">
+        <div class="fs-4 fw-semibold mt-4">Your account has been successfully activated!</div>
+        <a class="btn btn-warning btn-sm my-5" href="{% url "home" %}">Go to HME Shop</a>
+    </div>
+{% endblock content %}

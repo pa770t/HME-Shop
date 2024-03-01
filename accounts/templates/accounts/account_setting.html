@@ -1,0 +1,116 @@
+{% extends "accounts/master.html" %}
+{% load widget_tweaks %}
+{% block content %}
+    {% if messages %}
+        <div class="w-100 fs-5 text-center py-2 text-white bg-success">
+            {% for message in messages %}
+                {{message}}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="rounded-4 ps-5 py-4" style="background-color: #f1f1f1;">
+        <div class="ps-5 ms-5 d-flex align-items-center justify-content-between">
+            <div>
+                <h3 style="font-family: 'Roboto Condensed', sans-serif;">Account Setting</h3>
+                <p class="fs-5 text-secondary" style="font-family: 'Roboto', sans-serif;">edit your name, avatar, etc.</p>
+            </div>
+            <div class="me-5">
+                {% if membership_level == 'Bronze' %}
+                    <img src="https://res-console.cloudinary.com/dpthsy9bt/media_explorer_thumbnails/8977b086b40aaba2ea4d416561ec09ef/detailed" alt="Bronze">
+                    <p class="fs-3">{{membership_level}}</p>
+                {% endif %}
+                {% if membership_level == 'Silver' %}
+                    <img src="https://res-console.cloudinary.com/dpthsy9bt/media_explorer_thumbnails/fde9ef0de1fa969b2c13445deccd7ae5/detailed" alt="Silver">
+                    <p class="fs-3">{{membership_level}}</p>
+                {% endif %}
+                {% if membership_level == 'Gold' %}
+                    <img src="https://res-console.cloudinary.com/dpthsy9bt/media_explorer_thumbnails/39c848bc4c6ea06ad8516d86c2466b55/detailed" alt="Gold">
+                    <p class="fs-3">{{membership_level}}</p>
+                {% endif %}
+                {% if membership_level == 'Platinum' %}
+                    <img src="https://res-console.cloudinary.com/dpthsy9bt/media_explorer_thumbnails/3e55f326289bdb6e76d63c33cb9d8b83/detailed" alt="Platinum">
+                    <p class="fs-3">{{membership_level}}</p>
+                {% endif %}
+                {% if membership_level == 'Diamond' %}
+                    <img src="https://res-console.cloudinary.com/dpthsy9bt/media_explorer_thumbnails/c2c8052634e0850aa3f32f6fc2a208a1/detailed" alt="Diamond">
+                    <p class="fs-3">{{membership_level}}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="container d-flex justify-content-center">
+            <div class="container bg-white rounded-4 px-5 py-4" style="font-family: 'Poppins', sans-serif;">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="d-flex flex-column flex-lg-row justify-content-between">
+                        <div>
+                            <label ofor="name" class="fs-5 fw-semibld">Your Name</label>
+                            {% render_field form.name class="form-control rounded-3 border border-secondary py-2 mt-2" id="name" %}
+                            {% if form.name.errors %}
+                                <div class="text-danger mt-2">
+                                {% for error in form.name.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                                </div>
+                            {% endif %}
+                            <label for="email" class="fs-5 fw-semibold mt-2">Email Address</label>
+                            {% render_field form.email class="form-control rounded-3 border border-secondary py-2 mt-2" id="email" %}
+                            {% if form.email.errors %}
+                                <div class="text-danger mt-2">
+                                {% for error in form.email.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                                </div>
+                            {% endif %}
+                            <label for="phone_number" class="fs-5 fw-semibold mt-2">Phone Number</label>
+                            {% render_field form.phone_number class="form-control rounded-3 border border-secondary py-2 mt-2" id="phone_number" %}
+                            {% if form.phone_number.errors %}
+                                <div class="text-danger mt-2">
+                                {% for error in form.phone_number.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-4 mx-auto mt-4 mt-lg-0 d-flex flex-column">
+                            {% if user.profile_photo.url and not user.socialaccount_set.all.0.get_avatar_url %}
+                                <img id="preview" class="rounded-circle p-1 align-self-center border border-4 border-dark" src="{{ user.profile_photo.url }}" alt="profile" style="width: 200px; height: 200px;">
+                            {% endif %}
+                            {% if user.socialaccount_set.all.0.get_avatar_url %}
+                            <img id="preview" class="rounded-circle p-1 align-self-center border border-4 border-dark" src="{{ user.socialaccount_set.all.0.get_avatar_url }}" alt="profile" style="width: 200px; height: 200px;">
+                            {% endif %}
+                            {% if is_simple_auth %}
+                                <div class="align-self-center">
+                                    <input accept="image/*" name="profile_photo" type="file" id="upload" onchange="loadFile(event)" hidden/>
+                                    <label class="btn btn-dark rounded-2 mt-3" for="upload">Upload a picture</label>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="d-flex mt-4 justify-content-center gap-3">
+                        <a href="{% url "home" %}" class="btn btn-lg btn-light">Cancel</a>
+                        <button type="submit" class="btn btn-lg btn-dark">Save</button>
+                    </div>
+                </form>
+                <div class="d-flex flex-column gap-3 mt-3">
+                    {% if is_simple_auth %}
+                        <a href="{% url "change_password" %}" class="text-warning fw-semibold">Change your password?</a>
+                    {% endif %}
+                    <a href="#" id="openModalBtn" class="text-danger text-decoration-underline fw-semibold">Delete your account?</a>
+
+                    <div id="myModal" class="modal bg-danger d-flex justify-content-center d-none">
+                        <div class="modal-content p-5">
+                            <a href="#" class="text-decoration-none text-secondary fs-1 align-self-end" id="close">&times;</a>
+                            <div class="d-flex flex-column justify-content-center align-items-center">
+                                <h4>Delete your account permantly?</h4>
+                                <div class="d-flex mt-4 justify-content-center gap-3">
+                                    <a href="{% url "delete_user" %}" type="submit" class="btn btn-lg btn-danger">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
